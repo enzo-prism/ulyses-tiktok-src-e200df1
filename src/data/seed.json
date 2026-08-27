@@ -1,0 +1,312 @@
+{
+  "meta": {
+    "identity": {
+      "name": "Ulyses Osuna",
+      "studio": "Influencer Press",
+      "city": "Kennewick, WA",
+      "platform": "TikTok",
+      "handle": "@ulyses"
+    },
+    "reportingWeek": {
+      "start": "2026-08-24",
+      "end": "2026-08-30",
+      "timezone": "America/Los_Angeles",
+      "label": "Week of Aug 24"
+    },
+    "dataKind": "sample",
+    "sampleNote": "Sample operator library and SAMPLE TikTok metrics. This dashboard is not connected to a TikTok API. Nothing here is live analytics.",
+    "persistenceNote": "Decisions save in this browser. Local `npm run dev` also writes data/runtime.json when the filesystem allows it."
+  },
+  "assets": [
+    {
+      "id": "asset-tv-tricities",
+      "title": "Tri-Cities morning sit-down",
+      "sourceKind": "tv",
+      "sourceLabel": "Local TV",
+      "duration": "24:18",
+      "capturedAt": "2026-08-12",
+      "location": "Kennewick studio",
+      "notes": "Full sit-down on how Influencer Press gets founders onto press. Two clean A-roll answers for TikTok.",
+      "status": "ready"
+    },
+    {
+      "id": "asset-int-eight-years",
+      "title": "Eight years of Influencer Press",
+      "sourceKind": "interview",
+      "sourceLabel": "Founder interview",
+      "duration": "41:06",
+      "capturedAt": "2026-08-08",
+      "location": "Influencer Press, Kennewick",
+      "notes": "Origin story: Heritage dropout, Jack Vale, then the agency. Tight 35-second cut already posted.",
+      "status": "ready"
+    },
+    {
+      "id": "asset-lib-invisible",
+      "title": "Experts stay invisible",
+      "sourceKind": "library-clip",
+      "sourceLabel": "Dr. Phil-style library",
+      "duration": "6:12",
+      "capturedAt": "2026-08-04",
+      "location": "Library reel",
+      "notes": "Confrontation-style library clip: 30 years of clinical work still does not equal national visibility.",
+      "status": "ready"
+    },
+    {
+      "id": "asset-tv-greenroom",
+      "title": "Green room before the Kennewick hit",
+      "sourceKind": "tv",
+      "sourceLabel": "Local TV",
+      "duration": "9:40",
+      "capturedAt": "2026-08-20",
+      "location": "Tri-Cities station",
+      "notes": "Handheld before-air. Good face-to-camera energy. Needs a hook written before edit.",
+      "status": "raw"
+    },
+    {
+      "id": "asset-int-desk-authority",
+      "title": "Authority is not attention",
+      "sourceKind": "interview",
+      "sourceLabel": "Desk talk",
+      "duration": "18:22",
+      "capturedAt": "2026-08-15",
+      "location": "Influencer Press, Kennewick",
+      "notes": "Single-take desk talk. Approved cut is waiting on a publish slot.",
+      "status": "ready"
+    },
+    {
+      "id": "asset-lib-practice",
+      "title": "Your practice is invisible",
+      "sourceKind": "library-clip",
+      "sourceLabel": "Dr. Phil-style library",
+      "duration": "4:48",
+      "capturedAt": "2026-08-18",
+      "location": "Library reel",
+      "notes": "Shorter confrontation clip. In edit — captions and the 2.5s card still open.",
+      "status": "in-edit"
+    },
+    {
+      "id": "asset-tv-local-news",
+      "title": "Local news hit, Kennewick",
+      "sourceKind": "tv",
+      "sourceLabel": "Local TV",
+      "duration": "3:11",
+      "capturedAt": "2026-08-22",
+      "location": "Kennewick, WA",
+      "notes": "Aired segment plus station ID. Hold until we have a clean 9:16 recut.",
+      "status": "raw"
+    },
+    {
+      "id": "asset-int-forbes-recap",
+      "title": "After the Forbes feature",
+      "sourceKind": "interview",
+      "sourceLabel": "Founder interview",
+      "duration": "22:05",
+      "capturedAt": "2026-08-11",
+      "location": "Influencer Press, Kennewick",
+      "notes": "Recap of client Forbes placement. Do not name the client until Ulyses clears it.",
+      "status": "in-edit"
+    },
+    {
+      "id": "asset-lib-hallway",
+      "title": "Hallway after Business Insider",
+      "sourceKind": "library-clip",
+      "sourceLabel": "Dr. Phil-style library",
+      "duration": "2:36",
+      "capturedAt": "2026-08-09",
+      "location": "Library reel",
+      "notes": "High energy, but the cut names a client on camera. Blocked in publishing until cleared.",
+      "status": "ready"
+    },
+    {
+      "id": "asset-broll-training",
+      "title": "Media-training B-roll",
+      "sourceKind": "interview",
+      "sourceLabel": "Studio B-roll",
+      "duration": "31:00",
+      "capturedAt": "2026-08-21",
+      "location": "Influencer Press, Kennewick",
+      "notes": "Coaching a founder on-camera. Useful inserts, not a standalone TikTok yet.",
+      "status": "raw"
+    },
+    {
+      "id": "asset-int-buying-beliefs",
+      "title": "Buying beliefs before the sales call",
+      "sourceKind": "interview",
+      "sourceLabel": "Founder interview",
+      "duration": "16:54",
+      "capturedAt": "2026-08-16",
+      "location": "Influencer Press, Kennewick",
+      "notes": "Core Influencer Press thesis. Ready-to-review cut is sitting on the pick board.",
+      "status": "in-edit"
+    }
+  ],
+  "cuts": [
+    {
+      "id": "cut-invisible",
+      "assetId": "asset-lib-invisible",
+      "title": "30 years still invisible",
+      "hook": "A lot of people think 30 years of clinical work automatically gives you national visibility.",
+      "duration": "0:34",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "approved",
+      "note": "Posted Monday. Keep this as the reference cut for the library-clip series."
+    },
+    {
+      "id": "cut-eight-years",
+      "assetId": "asset-int-eight-years",
+      "title": "Eight years, one sentence",
+      "hook": "Eight years ago I started Influencer Press from Kennewick. Here is what actually compounded.",
+      "duration": "0:41",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "approved"
+    },
+    {
+      "id": "cut-tricities",
+      "assetId": "asset-tv-tricities",
+      "title": "What local TV actually taught me",
+      "hook": "Local TV does not make you famous. It makes you specific.",
+      "duration": "0:29",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "approved"
+    },
+    {
+      "id": "cut-authority",
+      "assetId": "asset-int-desk-authority",
+      "title": "Authority is not attention",
+      "hook": "You can be the most qualified person in the room and still lose the buying decision.",
+      "duration": "0:37",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "approved"
+    },
+    {
+      "id": "cut-hallway",
+      "assetId": "asset-lib-hallway",
+      "title": "Hallway, after the hit",
+      "hook": "The placement is not the win. The buying belief after the placement is the win.",
+      "duration": "0:22",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "approved",
+      "note": "Names a client. Do not post until Ulyses clears it."
+    },
+    {
+      "id": "cut-practice",
+      "assetId": "asset-lib-practice",
+      "title": "Your practice is invisible",
+      "hook": "If the only people who know your work are the people already in the waiting room, you are invisible.",
+      "duration": "0:31",
+      "editor": "Prism",
+      "status": "in-progress",
+      "pick": "none",
+      "note": "Captions and end card still open."
+    },
+    {
+      "id": "cut-forbes",
+      "assetId": "asset-int-forbes-recap",
+      "title": "Forbes is not the strategy",
+      "hook": "A Forbes logo is a receipt. It is not a funnel.",
+      "duration": "0:36",
+      "editor": "Prism",
+      "status": "in-progress",
+      "pick": "none",
+      "note": "Strip the client name before this leaves edit."
+    },
+    {
+      "id": "cut-beliefs",
+      "assetId": "asset-int-buying-beliefs",
+      "title": "They already decided",
+      "hook": "Your customer decided whether they will buy before they ever take the sales call.",
+      "duration": "0:33",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "none"
+    },
+    {
+      "id": "cut-invisible-v2",
+      "assetId": "asset-lib-invisible",
+      "title": "Visibility is a system",
+      "hook": "National visibility is not a personality trait. It is a press system.",
+      "duration": "0:28",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "selected",
+      "note": "Joint pick: Ulyses flagged this as a possible Friday alternate."
+    },
+    {
+      "id": "cut-tricities-alt",
+      "assetId": "asset-tv-tricities",
+      "title": "Press is a buying belief",
+      "hook": "We do not celebrate leads that never convert.",
+      "duration": "0:26",
+      "editor": "Prism",
+      "status": "ready-to-review",
+      "pick": "hold",
+      "note": "Hold — overlaps the scheduled Friday TV cut."
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-invisible",
+      "cutId": "cut-invisible",
+      "caption": "30 years of clinical work does not automatically become national visibility. Press is a system. TikTok is where we start proving it. @ulyses · Influencer Press · Kennewick",
+      "hook": "A lot of people think 30 years of clinical work automatically gives you national visibility.",
+      "status": "posted",
+      "postedAt": "2026-08-24T10:12:00-07:00",
+      "publicUrl": "https://www.tiktok.com/@ulyses/video/sample-20260824-invisible"
+    },
+    {
+      "id": "post-eight-years",
+      "cutId": "cut-eight-years",
+      "caption": "Eight years of Influencer Press, one sentence: we shape the buying belief before the sales call. Sample post for the @ulyses engine.",
+      "hook": "Eight years ago I started Influencer Press from Kennewick. Here is what actually compounded.",
+      "status": "posted",
+      "postedAt": "2026-08-26T09:04:00-07:00",
+      "publicUrl": "https://www.tiktok.com/@ulyses/video/sample-20260826-eight-years"
+    },
+    {
+      "id": "post-tricities",
+      "cutId": "cut-tricities",
+      "caption": "Local TV made me specific, not famous. The cut from the Tri-Cities sit-down. @ulyses",
+      "hook": "Local TV does not make you famous. It makes you specific.",
+      "status": "scheduled",
+      "scheduledFor": "2026-08-28T11:00:00-07:00"
+    },
+    {
+      "id": "post-authority",
+      "cutId": "cut-authority",
+      "caption": "Authority is not attention. The most qualified person in the room still loses if the buying belief is already set.",
+      "hook": "You can be the most qualified person in the room and still lose the buying decision.",
+      "status": "approved"
+    },
+    {
+      "id": "post-hallway",
+      "cutId": "cut-hallway",
+      "caption": "The placement is not the win. Held until the on-camera client name is cleared.",
+      "hook": "The placement is not the win. The buying belief after the placement is the win.",
+      "status": "blocked",
+      "blockedReason": "Ulyses must confirm the client can be named on camera before this goes live."
+    }
+  ],
+  "metrics": [
+    {
+      "postId": "post-invisible",
+      "views": 41200,
+      "likes": 2840,
+      "comments": 186,
+      "saves": 940,
+      "sampleAsOf": "2026-08-27"
+    },
+    {
+      "postId": "post-eight-years",
+      "views": 18740,
+      "likes": 1120,
+      "comments": 94,
+      "saves": 410,
+      "sampleAsOf": "2026-08-27"
+    }
+  ]
+}
