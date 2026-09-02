@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Ban, BanOff, CalendarClock, Check, CircleCheck, PanelRight, Save } from "lucide-react";
+import { Ban, CalendarClock, Check, CircleCheck, PanelRight, Save, Unlock } from "lucide-react";
 import { toast } from "sonner";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
@@ -112,7 +112,7 @@ function PostSheet({ post, open, onOpenChange }: { post: Post | null; open: bool
           </form>
           {post.status === "blocked" ? (
             <Button variant="outline" onClick={() => dispatch({ type: "unblock-post", postId: post.id })}>
-              <BanOff />
+              <Unlock />
               Unblock
             </Button>
           ) : post.status !== "posted" ? (
