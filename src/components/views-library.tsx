@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CircleCheck, Clapperboard, Scissors } from "lucide-react";
 import { toast } from "sonner";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
@@ -106,11 +107,13 @@ export function LibraryView() {
                         toast.message("Sent to edit");
                       }}
                     >
+                      <Scissors />
                       Send to edit
                     </Button>
                   ) : null}
                   {asset.status === "in-edit" ? (
                     <Button size="sm" variant="secondary" onClick={() => dispatch({ type: "mark-asset-ready", assetId: asset.id })}>
+                      <CircleCheck />
                       Mark ready
                     </Button>
                   ) : null}
@@ -123,6 +126,7 @@ export function LibraryView() {
                         toast.message("Opened another cut");
                       }}
                     >
+                      <Clapperboard />
                       Open another cut
                     </Button>
                   ) : null}

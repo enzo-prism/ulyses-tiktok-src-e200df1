@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, CircleCheck, MousePointerClick, Pause, Undo2 } from "lucide-react";
 import { toast } from "sonner";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
@@ -16,9 +17,9 @@ export function PickView() {
     toast.message(pick === "approved" ? "Approved for TikTok" : pick === "hold" ? "Held" : pick === "selected" ? "Selected" : "Returned to ready");
   };
   const board = [
-    { key: "ready", title: "Ready", items: columns.ready },
-    { key: "selected", title: "Selected", items: columns.selected },
-    { key: "hold", title: "Hold", items: columns.hold },
+    { key: "ready", title: "Ready", items: columns.ready, icon: CircleCheck },
+    { key: "selected", title: "Selected", items: columns.selected, icon: MousePointerClick },
+    { key: "hold", title: "Hold", items: columns.hold, icon: Pause },
   ] as const;
 
   return (
@@ -28,7 +29,10 @@ export function PickView() {
         {board.map((column) => (
           <div key={column.key} className="space-y-2">
             <div className="flex items-center justify-between px-1">
-              <h2 className="text-sm font-medium">{column.title}</h2>
+              <h2 className="flex items-center gap-1.5 text-sm font-medium">
+                <column.icon className="size-3.5 text-muted-foreground" />
+                {column.title}
+              </h2>
               <span className="text-xs text-muted-foreground tnum">{column.items.length}</span>
             </div>
             {column.items.length === 0 ? (
@@ -51,18 +55,22 @@ export function PickView() {
                     <CardContent className="flex flex-wrap gap-2">
                       {cut.pick !== "selected" ? (
                         <Button size="sm" variant="secondary" onClick={() => setPick(cut.id, "selected")}>
+                          <MousePointerClick />
                           Select
                         </Button>
                       ) : null}
                       <Button size="sm" onClick={() => setPick(cut.id, "approved")}>
+                        <Check />
                         Approve for TikTok
                       </Button>
                       {cut.pick !== "hold" ? (
                         <Button size="sm" variant="outline" onClick={() => setPick(cut.id, "hold")}>
+                          <Pause />
                           Hold
                         </Button>
                       ) : (
                         <Button size="sm" variant="ghost" onClick={() => setPick(cut.id, "none")}>
+                          <Undo2 />
                           Return to ready
                         </Button>
                       )}

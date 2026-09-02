@@ -1,3 +1,19 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Ban,
+  Check,
+  Circle,
+  CircleCheck,
+  CircleDashed,
+  Clapperboard,
+  Clock,
+  Film,
+  Mic,
+  MousePointerClick,
+  Pause,
+  Scissors,
+  Tv,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const labels: Record<string, string> = {
@@ -38,6 +54,31 @@ const variants: Record<string, "default" | "secondary" | "destructive" | "outlin
   "library-clip": "outline",
 };
 
+export const statusIcons: Record<string, LucideIcon> = {
+  posted: CircleCheck,
+  scheduled: Clock,
+  open: CircleDashed,
+  blocked: Ban,
+  raw: Film,
+  "in-edit": Scissors,
+  "in-progress": Scissors,
+  ready: CircleCheck,
+  "ready-to-review": CircleCheck,
+  none: Circle,
+  selected: MousePointerClick,
+  approved: Check,
+  hold: Pause,
+  tv: Tv,
+  interview: Mic,
+  "library-clip": Clapperboard,
+};
+
 export function StatusBadge({ value }: { value: string }) {
-  return <Badge variant={variants[value] ?? "outline"}>{labels[value] ?? value}</Badge>;
+  const Icon = statusIcons[value];
+  return (
+    <Badge variant={variants[value] ?? "outline"}>
+      {Icon ? <Icon /> : null}
+      {labels[value] ?? value}
+    </Badge>
+  );
 }
