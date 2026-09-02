@@ -35,11 +35,8 @@ export function PerformanceView() {
   return (
     <div className="space-y-4">
       <SampleAlert />
-      <section
-        aria-label="Sample totals"
-        className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10"
-      >
-        <div className="grid grid-cols-2 xl:grid-cols-4">
+      <section aria-label="Sample totals">
+        <div className="inline-flex max-w-full flex-wrap overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
           {(
             [
               ["Views", totals.views, Eye],
@@ -50,11 +47,7 @@ export function PerformanceView() {
           ).map(([label, value, Icon], index) => (
             <div
               key={label}
-              className={`flex items-center gap-2 px-3 py-2.5 ${
-                index % 2 === 1 ? "border-l border-border" : ""
-              } ${index > 1 ? "border-t border-border xl:border-t-0" : ""} ${
-                index > 0 ? "xl:border-l xl:border-border" : ""
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-2 ${index > 0 ? "border-l border-border" : ""}`}
             >
               <Icon className="size-4 shrink-0 text-muted-foreground" />
               <span className="text-xl font-medium leading-none tnum">{formatCount(value)}</span>

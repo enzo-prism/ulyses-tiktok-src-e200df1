@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Console } from "@/components/console";
-import { metaForPath } from "@/lib/page-meta";
+import { metaForPath, missingMeta } from "@/lib/page-meta";
 
 const routes = new Set(["", "library", "edit", "pick", "publishing", "performance"]);
 
@@ -16,10 +16,10 @@ export async function generateMetadata({
   params: Promise<{ slug?: string[] }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (slug && slug.length > 1) return metaForPath("/");
+  if (slug && slug.length > 1) return missingMeta;
   const leaf = slug?.[0] ?? "";
   if (leaf === "posted") return metaForPath("/");
-  if (!routes.has(leaf)) return metaForPath("/");
+  if (!routes.has(leaf)) return missingMeta;
   return metaForPath(pathFromSlug(slug));
 }
 

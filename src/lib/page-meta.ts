@@ -9,6 +9,8 @@ export const routeMeta: Record<string, { title: string; description: string }> =
   "/performance": { title: "Stats", description: "Sample metrics." },
 };
 
+export const missingMeta = { title: "Missing", description: "Not here." };
+
 export function metaForPath(path: string) {
   return routeMeta[path] ?? routeMeta["/"];
 }

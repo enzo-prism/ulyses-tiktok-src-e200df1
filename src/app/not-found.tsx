@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { missingMeta } from "@/lib/page-meta";
 
-export const metadata: Metadata = {
-  title: "Missing",
-  description: "Not here.",
-};
+export const metadata: Metadata = missingMeta;
 
 export default function NotFound() {
   return (

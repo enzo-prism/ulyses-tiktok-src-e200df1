@@ -26,16 +26,14 @@ export function TodayView() {
     <div className="space-y-10">
       <SampleAlert />
 
-      <section aria-label="Pipeline counts" className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
-        <div className="grid grid-cols-2 sm:grid-cols-4">
+      <section aria-label="Pipeline counts">
+        <div className="inline-flex max-w-full flex-wrap overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
           {pipeline.map((item, index) => (
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center gap-2 px-3 py-2.5 transition-colors hover:bg-muted/40 ${
-                index % 2 === 1 ? "border-l border-border" : ""
-              } ${index > 1 ? "border-t border-border sm:border-t-0" : ""} ${
-                index > 0 ? "sm:border-l sm:border-border" : ""
+              className={`flex items-center gap-1.5 px-3 py-2 transition-colors hover:bg-muted/40 ${
+                index > 0 ? "border-l border-border" : ""
               }`}
             >
               <item.icon className="size-4 shrink-0 text-muted-foreground" />
