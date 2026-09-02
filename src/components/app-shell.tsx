@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  CalendarDays,
+  ChartNoAxesColumn,
   Clapperboard,
-  Gauge,
   Layers3,
   LayoutGrid,
   MoreHorizontal,
-  Radio,
-  Rows3,
+  RotateCcw,
+  Send,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -39,30 +40,22 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useEngine } from "@/lib/store";
+import { metaForPath } from "@/lib/page-meta";
 
 const nav = [
-  { href: "/", label: "Today", icon: Gauge },
+  { href: "/", label: "Week", icon: CalendarDays },
   { href: "/library", label: "Library", icon: Layers3 },
   { href: "/edit", label: "Edit", icon: Clapperboard },
-  { href: "/pick", label: "Pick", icon: LayoutGrid },
-  { href: "/publishing", label: "Publishing", icon: Radio },
-  { href: "/performance", label: "Performance", icon: Rows3 },
+  { href: "/pick", label: "Picks", icon: LayoutGrid },
+  { href: "/publishing", label: "Post", icon: Send },
+  { href: "/performance", label: "Stats", icon: ChartNoAxesColumn },
 ] as const;
-
-const titles: Record<string, { title: string; description: string }> = {
-  "/": { title: "Posted versus next", description: "What went live, what is next, what is blocked." },
-  "/library": { title: "Library", description: "Raw footage inventory for @ulyses." },
-  "/edit": { title: "Edit queue", description: "Cuts in progress and ready to review." },
-  "/pick": { title: "Pick board", description: "Jointly select, approve, or hold the next TikToks." },
-  "/publishing": { title: "Publishing", description: "Schedule, mark posted, and attach a public URL." },
-  "/performance": { title: "Performance", description: "SAMPLE TikTok metrics for posted items." },
-};
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { state, reset, error, clearError } = useEngine();
   const identity = state.meta.identity;
-  const page = titles[pathname] ?? titles["/"];
+  const page = metaForPath(pathname);
 
   return (
     <>
@@ -133,6 +126,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   toast.message("Sample library restored");
                 }}
               >
+                <RotateCcw />
                 Restore sample library
               </DropdownMenuItem>
             </DropdownMenuContent>

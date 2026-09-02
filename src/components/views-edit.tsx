@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleCheck, Scissors } from "lucide-react";
 import { toast } from "sonner";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
@@ -45,6 +46,7 @@ export function EditView() {
                   toast.message("Ready to review");
                 }}
               >
+                <CircleCheck />
                 Mark ready to review
               </Button>
             ) : (
@@ -60,8 +62,14 @@ export function EditView() {
       <SampleAlert compact />
       <Tabs defaultValue="in-progress">
         <TabsList>
-          <TabsTrigger value="in-progress">In progress ({inProgress.length})</TabsTrigger>
-          <TabsTrigger value="ready">Ready to review ({ready.length})</TabsTrigger>
+          <TabsTrigger value="in-progress">
+            <Scissors />
+            In progress ({inProgress.length})
+          </TabsTrigger>
+          <TabsTrigger value="ready">
+            <CircleCheck />
+            Ready to review ({ready.length})
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="in-progress">
           <Card>

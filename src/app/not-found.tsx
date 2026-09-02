@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { missingMeta } from "@/lib/page-meta";
+
+export const metadata: Metadata = missingMeta;
 
 export default function NotFound() {
   return (
@@ -10,7 +14,7 @@ export default function NotFound() {
         Library, edit, pick, publishing, and performance for @ulyses. There are no other clients or platforms.
       </p>
       <Link href="/" className={buttonVariants()}>
-        Back to today
+        Back to week
       </Link>
     </div>
   );

@@ -1,8 +1,9 @@
 "use client";
 
+import { Bookmark, Eye, Heart, MessageCircle } from "lucide-react";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -34,22 +35,26 @@ export function PerformanceView() {
   return (
     <div className="space-y-4">
       <SampleAlert />
-      <section className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-        {(
-          [
-            ["Sample views", totals.views],
-            ["Sample likes", totals.likes],
-            ["Sample comments", totals.comments],
-            ["Sample saves", totals.saves],
-          ] as const
-        ).map(([label, value]) => (
-          <Card key={label} size="sm">
-            <CardHeader>
-              <CardDescription>{label}</CardDescription>
-              <CardTitle className="tnum">{formatCount(value)}</CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
+      <section aria-label="Sample totals">
+        <div className="inline-flex max-w-full flex-wrap overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
+          {(
+            [
+              ["Views", totals.views, Eye],
+              ["Likes", totals.likes, Heart],
+              ["Comments", totals.comments, MessageCircle],
+              ["Saves", totals.saves, Bookmark],
+            ] as const
+          ).map(([label, value, Icon], index) => (
+            <div
+              key={label}
+              className={`flex items-center gap-1.5 px-3 py-2 ${index > 0 ? "border-l border-border" : ""}`}
+            >
+              <Icon className="size-4 shrink-0 text-muted-foreground" />
+              <span className="text-xl font-medium leading-none tnum">{formatCount(value)}</span>
+              <span className="text-xs text-muted-foreground">{label}</span>
+            </div>
+          ))}
+        </div>
       </section>
       <Card>
         <Table>

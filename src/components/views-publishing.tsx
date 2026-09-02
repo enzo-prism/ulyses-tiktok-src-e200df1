@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Ban, CalendarClock, Check, CircleCheck, PanelRight, Save, Unlock } from "lucide-react";
 import { toast } from "sonner";
 import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
@@ -70,7 +71,10 @@ function PostSheet({ post, open, onOpenChange }: { post: Post | null; open: bool
               <Label htmlFor={`${post.id}-url`}>Public TikTok URL</Label>
               <Input id={`${post.id}-url`} name="publicUrl" defaultValue={post.publicUrl ?? ""} placeholder="https://www.tiktok.com/@ulyses/video/…" />
             </div>
-            <Button type="submit" variant="secondary">Save copy</Button>
+            <Button type="submit" variant="secondary">
+              <Save />
+              Save copy
+            </Button>
           </form>
           <form
             className="space-y-2"
@@ -85,7 +89,10 @@ function PostSheet({ post, open, onOpenChange }: { post: Post | null; open: bool
           >
             <Label htmlFor={`${post.id}-when`}>Schedule (Pacific)</Label>
             <Input id={`${post.id}-when`} name="scheduledFor" type="datetime-local" defaultValue={post.scheduledFor?.slice(0, 16)} />
-            <Button type="submit" disabled={post.status === "posted"}>Schedule</Button>
+            <Button type="submit" disabled={post.status === "posted"}>
+              <CalendarClock />
+              Schedule
+            </Button>
           </form>
           <form
             className="space-y-2"
@@ -98,15 +105,22 @@ function PostSheet({ post, open, onOpenChange }: { post: Post | null; open: bool
           >
             <Label htmlFor={`${post.id}-live`}>Mark posted</Label>
             <Input id={`${post.id}-live`} name="liveUrl" defaultValue={post.publicUrl ?? ""} placeholder="Live public URL" />
-            <Button type="submit" variant="outline" disabled={post.status === "posted"}>Mark posted</Button>
+            <Button type="submit" variant="outline" disabled={post.status === "posted"}>
+              <CircleCheck />
+              Mark posted
+            </Button>
           </form>
           {post.status === "blocked" ? (
-            <Button variant="outline" onClick={() => dispatch({ type: "unblock-post", postId: post.id })}>Unblock</Button>
+            <Button variant="outline" onClick={() => dispatch({ type: "unblock-post", postId: post.id })}>
+              <Unlock />
+              Unblock
+            </Button>
           ) : post.status !== "posted" ? (
             <Button
               variant="ghost"
               onClick={() => dispatch({ type: "block-post", postId: post.id, reason: "Held by the operator until the reason is cleared." })}
             >
+              <Ban />
               Block
             </Button>
           ) : null}
@@ -121,10 +135,10 @@ export function PublishingView() {
   const groups = publishingGroups(state);
   const [active, setActive] = useState<Post | null>(null);
   const columns = [
-    { key: "approved", title: "Approved", items: groups.approved },
-    { key: "scheduled", title: "Scheduled", items: groups.scheduled },
-    { key: "posted", title: "Posted", items: groups.posted },
-    { key: "blocked", title: "Blocked", items: groups.blocked },
+    { key: "approved", title: "Approved", items: groups.approved, icon: Check },
+    { key: "scheduled", title: "Scheduled", items: groups.scheduled, icon: CalendarClock },
+    { key: "posted", title: "Posted", items: groups.posted, icon: CircleCheck },
+    { key: "blocked", title: "Blocked", items: groups.blocked, icon: Ban },
   ] as const;
 
   return (
@@ -134,6 +148,7 @@ export function PublishingView() {
         <TabsList>
           {columns.map((column) => (
             <TabsTrigger key={column.key} value={column.key}>
+              <column.icon />
               {column.title} ({column.items.length})
             </TabsTrigger>
           ))}
@@ -170,6 +185,7 @@ export function PublishingView() {
                         </TableCell>
                         <TableCell className="text-right">
                           <Button size="sm" variant="outline" onClick={() => setActive(post)}>
+                            <PanelRight />
                             Open
                           </Button>
                         </TableCell>

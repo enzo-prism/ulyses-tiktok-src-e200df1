@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { routeMeta, siteTitle } from "@/lib/page-meta";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,9 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ulyses TikTok Engine",
-  description:
-    "Operator dashboard for Ulyses Osuna / Influencer Press. TikTok @ulyses only: library, edit, pick, publishing, and SAMPLE performance.",
+  title: {
+    default: siteTitle,
+    template: `%s · ${siteTitle}`,
+  },
+  description: routeMeta["/"].description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
