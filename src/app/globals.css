@@ -123,7 +123,7 @@
   }
   html {
     @apply font-sans;
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -132,4 +132,129 @@
 
 .tnum {
   font-variant-numeric: tabular-nums;
+}
+
+/* Light studio: quiet surfaces, readable hierarchy, deliberate spacing. */
+:root {
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: #202331;
+  --card: #ffffff;
+  --card-foreground: #202331;
+  --primary: #7054d6;
+  --primary-foreground: #ffffff;
+  --muted: #f6f7f9;
+  --muted-foreground: #697080;
+  --secondary: #f3f0fc;
+  --secondary-foreground: #6445bb;
+  --accent: #f0ecfb;
+  --accent-foreground: #6547c2;
+  --border: #eceef2;
+  --input: #e2e5ec;
+  --ring: #927bdd;
+  --sidebar: #fafafb;
+  --sidebar-foreground: #697080;
+  --sidebar-accent: #efebfb;
+  --sidebar-accent-foreground: #6849c4;
+  --sidebar-border: #eceef2;
+}
+html {
+  color-scheme: light;
+}
+body {
+  letter-spacing: -0.012em;
+}
+::selection {
+  background: #e8dffa;
+}
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+[data-slot="card"] {
+  box-shadow: none;
+  border: 1px solid var(--border);
+  --tw-ring-shadow: 0 0 #0000;
+}
+[data-slot="button"][data-size="default"] {
+  min-height: 40px;
+  padding-inline: 14px;
+}
+[data-slot="button"][data-size="sm"] {
+  min-height: 36px;
+  padding-inline: 12px;
+}
+[data-slot="button"][data-size="icon"] {
+  width: 40px;
+  height: 40px;
+}
+[data-slot="input"],
+[data-slot="textarea"] {
+  min-height: 42px;
+}
+.status-badge {
+  border: 0;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 7px;
+  gap: 5px;
+  background: #f3f4f6;
+  color: #626b7b;
+}
+.status-posted,
+.status-approved,
+.status-ready {
+  background: #edf8f2;
+  color: #267657;
+}
+.status-scheduled,
+.status-selected,
+.status-ready-to-review {
+  background: #f0ebfb;
+  color: #7450be;
+}
+.status-in-edit,
+.status-in-progress {
+  background: #edf4fd;
+  color: #426eaf;
+}
+.status-blocked,
+.status-hold {
+  background: #fff5e7;
+  color: #976423;
+}
+.status-open {
+  background: transparent;
+  color: #8b93a1;
+}
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  transform: translateY(-200%);
+  background: white;
+  padding: 12px;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+@media (max-width: 640px) {
+  [data-slot="button"] {
+    min-height: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

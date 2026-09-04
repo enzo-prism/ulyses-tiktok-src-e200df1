@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ArrowUpRight,
   CalendarDays,
   ChartNoAxesColumn,
+  ChevronRight,
   Clapperboard,
   Layers3,
   LayoutGrid,
   MoreHorizontal,
   RotateCcw,
   Send,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +25,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -38,79 +39,121 @@ import {
   SidebarMenuItem,
   SidebarRail,
   SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
+import { SampleAlert } from "@/components/sample-alert";
 import { useEngine } from "@/lib/store";
 import { metaForPath } from "@/lib/page-meta";
 
 const nav = [
-  { href: "/", label: "Week", icon: CalendarDays },
+  { href: "/", label: "Overview", icon: LayoutGrid },
   { href: "/library", label: "Library", icon: Layers3 },
-  { href: "/edit", label: "Edit", icon: Clapperboard },
-  { href: "/pick", label: "Picks", icon: LayoutGrid },
-  { href: "/publishing", label: "Post", icon: Send },
-  { href: "/performance", label: "Stats", icon: ChartNoAxesColumn },
+  { href: "/edit", label: "Editing", icon: Clapperboard },
+  { href: "/pick", label: "Review", icon: Sparkles },
+  { href: "/publishing", label: "Publishing", icon: Send },
+  { href: "/performance", label: "Analytics", icon: ChartNoAxesColumn },
 ] as const;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { state, reset, error, clearError } = useEngine();
-  const identity = state.meta.identity;
+  const { isMobile, setOpenMobile } = useSidebar();
   const page = metaForPath(pathname);
-
+  const current = nav.find((item) => item.href === pathname);
+  const reviewCount = state.cuts.filter(
+    (c) => c.status === "ready-to-review" && c.pick !== "approved",
+  ).length;
   return (
     <>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <div className="flex items-center gap-2 px-2 py-1.5">
-            <Avatar size="sm">
-              <AvatarFallback>UO</AvatarFallback>
-            </Avatar>
-            <div className="min-w-0 group-data-[collapsible=icon]:hidden">
-              <p className="truncate text-sm font-medium">{identity.name.split(" ")[0]}</p>
-              <p className="truncate text-xs text-muted-foreground">{identity.handle}</p>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <Sidebar collapsible="icon" className="workspace-sidebar">
+        <SidebarHeader className="px-5 pb-7 pt-8 group-data-[collapsible=icon]:px-2">
+          <Link
+            href="/"
+            className="flex items-center gap-3"
+            aria-label="Ulyses workspace home"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
+              <Layers3 className="size-5" />
+            </span>
+            <div className="group-data-[collapsible=icon]:hidden">
+              <p className="text-base font-semibold tracking-tight">
+                ulyses<span className="text-primary">.</span>
+              </p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Content studio
+              </p>
             </div>
-          </div>
+          </Link>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>TikTok engine</SidebarGroupLabel>
+          <SidebarGroup className="px-4 group-data-[collapsible=icon]:px-2">
+            <SidebarGroupLabel className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[0.16em]">
+              Workspace
+            </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>
-                {nav.map((item) => {
-                  const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-                  return (
-                    <SidebarMenuItem key={item.href}>
-                      <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
-                        <Link href={item.href}>
-                          <item.icon />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  );
-                })}
+              <SidebarMenu className="gap-1.5">
+                {nav.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === item.href}
+                      tooltip={item.label}
+                      className="h-11 rounded-xl px-3 text-sm font-medium"
+                    >
+                      <Link
+                        href={item.href}
+                        aria-current={
+                          pathname === item.href ? "page" : undefined
+                        }
+                        onClick={() => {
+                          if (isMobile) setOpenMobile(false);
+                        }}
+                      >
+                        <item.icon className="size-[18px]" strokeWidth={1.7} />
+                        <span>{item.label}</span>
+                        {item.href === "/pick" && reviewCount > 0 ? (
+                          <span className="ml-auto rounded-md bg-white px-1.5 py-0.5 text-[11px] text-muted-foreground group-data-[collapsible=icon]:hidden">
+                            {reviewCount}
+                          </span>
+                        ) : null}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          <div className="px-2 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-            {identity.studio}
-            <span className="mx-1">·</span>
-            {identity.city}
+        <SidebarFooter className="mt-6 border-t p-5 group-data-[collapsible=icon]:px-2">
+          <div className="flex items-center gap-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full border bg-white text-xs font-semibold">
+              UO
+            </div>
+            <div className="group-data-[collapsible=icon]:hidden">
+              <p className="text-sm font-medium">Ulyses Osuna</p>
+              <p className="text-xs text-muted-foreground">Influencer Press</p>
+            </div>
           </div>
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-
-      <SidebarInset>
-        <header className="flex h-12 shrink-0 items-center gap-2 border-b px-3">
-          <SidebarTrigger />
-          <Separator orientation="vertical" className="h-4" />
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium">{page.title}</p>
-            <p className="hidden truncate text-xs text-muted-foreground sm:block">{page.description}</p>
+      <SidebarInset className="min-w-0 bg-white">
+        <header className="flex h-[76px] shrink-0 items-center gap-3 border-b border-border/70 px-5 md:px-10">
+          <SidebarTrigger className="text-muted-foreground" />
+          <div className="flex min-w-0 flex-1 items-center gap-2 text-xs text-muted-foreground">
+            <span className="hidden sm:inline">Workspace</span>
+            <ChevronRight className="hidden size-3 sm:inline" />
+            <span className="font-medium text-foreground">
+              {current?.label ?? "Workspace"}
+            </span>
           </div>
+          <span className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
+            <span className="size-1.5 rounded-full bg-violet-400" /> TikTok
+            studio
+          </span>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Workspace menu">
@@ -132,17 +175,58 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-
-        {error ? (
-          <div className="border-b px-4 py-2 text-sm text-destructive">
-            {error}{" "}
-            <Button variant="link" size="xs" onClick={clearError}>
-              Dismiss
-            </Button>
+        <main
+          id="main-content"
+          className="mx-auto w-full max-w-[1480px] flex-1 px-5 pb-14 pt-9 md:px-10 md:pt-12 xl:px-12"
+        >
+          <div className="mb-8 flex flex-wrap items-start justify-between gap-5">
+            <div>
+              <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                {pathname === "/"
+                  ? "The creative workspace"
+                  : "Ulyses / Content studio"}
+              </p>
+              <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.035em] md:text-[36px]">
+                {page.title}
+              </h1>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground md:text-[15px]">
+                {page.description}
+              </p>
+            </div>
+            {pathname === "/" ? (
+              <Button asChild className="mt-2 h-11 gap-2 rounded-xl px-5">
+                <Link href="/pick">
+                  <Sparkles className="size-4" />
+                  Review content
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              </Button>
+            ) : null}
           </div>
-        ) : null}
-
-        <div className="flex-1 p-4 md:p-6">{children}</div>
+          <SampleAlert />
+          {error ? (
+            <div
+              role="alert"
+              className="mb-6 rounded-xl bg-red-50 p-4 text-sm text-destructive"
+            >
+              {error}{" "}
+              <Button variant="link" onClick={clearError}>
+                Dismiss
+              </Button>
+            </div>
+          ) : null}
+          {children}
+          <footer className="mt-14 flex flex-wrap items-center justify-between gap-2 border-t pt-6 text-xs text-muted-foreground">
+            <span>
+              Created with care by{" "}
+              <span className="font-medium text-foreground">Prism</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays className="size-3.5" />
+              Sample workspace · Pacific time
+            </span>
+          </footer>
+        </main>
       </SidebarInset>
     </>
   );

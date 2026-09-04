@@ -82,8 +82,19 @@ export type EngineAction =
   | { type: "mark-cut-ready"; cutId: string }
   | { type: "set-pick"; cutId: string; pick: PickDecision }
   | { type: "schedule"; postId: string; scheduledFor: string }
-  | { type: "mark-posted"; postId: string; publicUrl?: string; postedAt?: string }
-  | { type: "update-post"; postId: string; caption?: string; hook?: string; publicUrl?: string }
+  | {
+      type: "mark-posted";
+      postId: string;
+      publicUrl?: string;
+      postedAt?: string;
+    }
+  | {
+      type: "update-post";
+      postId: string;
+      caption?: string;
+      hook?: string;
+      publicUrl?: string;
+    }
   | { type: "block-post"; postId: string; reason: string }
   | { type: "unblock-post"; postId: string }
   | { type: "reset" };
@@ -110,10 +121,18 @@ const compactNumber = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 const fullNumber = new Intl.NumberFormat("en-US");
+const pacificDay = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/Los_Angeles",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
 
 export function formatDate(value?: string) {
   if (!value) return "—";
-  return dateOnly.format(new Date(value.length === 10 ? `${value}T12:00:00-07:00` : value));
+  return dateOnly.format(
+    new Date(value.length === 10 ? `${value}T12:00:00-07:00` : value),
+  );
 }
 
 export function formatDateTime(value?: string) {
@@ -148,7 +167,14 @@ export function weekDays(start: string, end: string) {
 }
 
 export function dayKey(value?: string) {
-  return value?.slice(0, 10);
+  if (!value) return undefined;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return undefined;
+  const parts = pacificDay.formatToParts(date);
+  const part = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((item) => item.type === type)?.value;
+  return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
 function cloneState(state: EngineState): EngineState {
@@ -220,17 +246,25 @@ function refreshAssetStatus(state: EngineState, assetId: string) {
   const related = cutsForAsset(state, assetId);
   if (
     related.some((cut) =>
-      state.posts.some((post) => post.cutId === cut.id && post.status === "posted"),
+      state.posts.some(
+        (post) => post.cutId === cut.id && post.status === "posted",
+      ),
     ) ||
-    related.some((cut) => cut.pick === "approved" || cut.status === "ready-to-review")
+    related.some(
+      (cut) => cut.pick === "approved" || cut.status === "ready-to-review",
+    )
   ) {
     asset.status = "ready";
     return;
   }
-  if (related.some((cut) => cut.status === "in-progress")) asset.status = "in-edit";
+  if (related.some((cut) => cut.status === "in-progress"))
+    asset.status = "in-edit";
 }
 
-export function applyAction(state: EngineState, action: EngineAction): EngineState {
+export function applyAction(
+  state: EngineState,
+  action: EngineAction,
+): EngineState {
   if (action.type === "reset") return cloneState(SEED_STATE);
   const next = cloneState(state);
   switch (action.type) {
@@ -251,7 +285,8 @@ export function applyAction(state: EngineState, action: EngineAction): EngineSta
     }
     case "set-pick": {
       const cut = findCut(next, action.cutId);
-      if (cut.status !== "ready-to-review") throw new Error("Only ready-to-review cuts can be picked.");
+      if (cut.status !== "ready-to-review")
+        throw new Error("Only ready-to-review cuts can be picked.");
       cut.pick = action.pick;
       if (action.pick === "approved") ensurePostForCut(next, cut);
       refreshAssetStatus(next, cut.assetId);
@@ -259,15 +294,18 @@ export function applyAction(state: EngineState, action: EngineAction): EngineSta
     }
     case "schedule": {
       const post = findPost(next, action.postId);
-      if (post.status === "posted") throw new Error("Posted TikToks stay posted.");
-      if (post.status === "blocked") throw new Error("Unblock this TikTok before scheduling.");
+      if (post.status === "posted")
+        throw new Error("Posted TikToks stay posted.");
+      if (post.status === "blocked")
+        throw new Error("Unblock this TikTok before scheduling.");
       post.status = "scheduled";
       post.scheduledFor = action.scheduledFor;
       return next;
     }
     case "mark-posted": {
       const post = findPost(next, action.postId);
-      if (post.status === "blocked") throw new Error("Unblock this TikTok before marking it posted.");
+      if (post.status === "blocked")
+        throw new Error("Unblock this TikTok before marking it posted.");
       post.status = "posted";
       post.postedAt = action.postedAt ?? nowIso();
       if (action.publicUrl !== undefined) post.publicUrl = action.publicUrl;
@@ -282,7 +320,8 @@ export function applyAction(state: EngineState, action: EngineAction): EngineSta
     }
     case "block-post": {
       const post = findPost(next, action.postId);
-      if (post.status === "posted") throw new Error("A live TikTok cannot be blocked from this board.");
+      if (post.status === "posted")
+        throw new Error("A live TikTok cannot be blocked from this board.");
       post.status = "blocked";
       post.blockedReason = action.reason;
       return next;
@@ -303,7 +342,10 @@ export function applyAction(state: EngineState, action: EngineAction): EngineSta
 export function weekPosts(state: EngineState) {
   const start = state.meta.reportingWeek.start;
   const end = state.meta.reportingWeek.end;
-  const inWeek = (iso?: string) => Boolean(iso && iso.slice(0, 10) >= start && iso.slice(0, 10) <= end);
+  const inWeek = (iso?: string) => {
+    const day = dayKey(iso);
+    return Boolean(day && day >= start && day <= end);
+  };
   const posted = state.posts
     .filter((post) => post.status === "posted" && inWeek(post.postedAt))
     .sort((a, b) => (a.postedAt ?? "").localeCompare(b.postedAt ?? ""));
@@ -314,15 +356,21 @@ export function weekPosts(state: EngineState) {
     posted,
     scheduled,
     blocked: state.posts.filter((post) => post.status === "blocked"),
-    nextUp: scheduled[0] ?? state.posts.find((post) => post.status === "approved") ?? null,
+    nextUp:
+      scheduled[0] ??
+      state.posts.find((post) => post.status === "approved") ??
+      null,
   };
 }
 
 export function pipelineCounts(state: EngineState) {
   return {
     raw: state.assets.filter((asset) => asset.status === "raw").length,
-    inProgressCuts: state.cuts.filter((cut) => cut.status === "in-progress").length,
-    readyCuts: state.cuts.filter((cut) => cut.status === "ready-to-review" && cut.pick !== "approved").length,
+    inProgressCuts: state.cuts.filter((cut) => cut.status === "in-progress")
+      .length,
+    readyCuts: state.cuts.filter(
+      (cut) => cut.status === "ready-to-review" && cut.pick !== "approved",
+    ).length,
     blocked: state.posts.filter((post) => post.status === "blocked").length,
   };
 }
@@ -340,7 +388,9 @@ export function metricsForPost(state: EngineState, postId: string) {
 }
 
 export function pickColumns(state: EngineState) {
-  const board = state.cuts.filter((cut) => cut.status === "ready-to-review" && cut.pick !== "approved");
+  const board = state.cuts.filter(
+    (cut) => cut.status === "ready-to-review" && cut.pick !== "approved",
+  );
   return {
     ready: board.filter((cut) => cut.pick === "none"),
     selected: board.filter((cut) => cut.pick === "selected"),
@@ -349,6 +399,12 @@ export function pickColumns(state: EngineState) {
 }
 
 export function publishingGroups(state: EngineState) {
-  const by = (status: PublishStatus) => state.posts.filter((post) => post.status === status);
-  return { approved: by("approved"), scheduled: by("scheduled"), posted: by("posted"), blocked: by("blocked") };
+  const by = (status: PublishStatus) =>
+    state.posts.filter((post) => post.status === status);
+  return {
+    approved: by("approved"),
+    scheduled: by("scheduled"),
+    posted: by("posted"),
+    blocked: by("blocked"),
+  };
 }

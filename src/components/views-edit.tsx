@@ -1,19 +1,10 @@
 "use client";
 
-import { CircleCheck, Scissors } from "lucide-react";
+import { CircleCheck, Clock3, Scissors, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { SampleAlert } from "@/components/sample-alert";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { assetById, type Cut } from "@/lib/engine";
 import { useEngine } from "@/lib/store";
@@ -21,96 +12,105 @@ import { useEngine } from "@/lib/store";
 export function EditView() {
   const { state, dispatch } = useEngine();
   const inProgress = state.cuts.filter((cut) => cut.status === "in-progress");
-  const ready = state.cuts.filter((cut) => cut.status === "ready-to-review" && cut.pick !== "approved");
-
-  const rows = (cuts: Cut[]) =>
-    cuts.map((cut) => {
-      const asset = assetById(state, cut.assetId);
-      return (
-        <TableRow key={cut.id}>
-          <TableCell>
-            <div className="font-medium">{cut.title}</div>
-            <div className="text-xs text-muted-foreground">{cut.hook || "Hook still needs a line."}</div>
-          </TableCell>
-          <TableCell>{asset ? <StatusBadge value={asset.sourceKind} /> : null}</TableCell>
-          <TableCell>
-            <StatusBadge value={cut.status} />
-          </TableCell>
-          <TableCell className="text-right tnum">{cut.duration}</TableCell>
-          <TableCell className="text-right">
-            {cut.status === "in-progress" ? (
-              <Button
-                size="sm"
-                onClick={() => {
-                  dispatch({ type: "mark-cut-ready", cutId: cut.id });
-                  toast.message("Ready to review");
-                }}
-              >
-                <CircleCheck />
-                Mark ready to review
-              </Button>
-            ) : (
-              <StatusBadge value={cut.pick} />
-            )}
-          </TableCell>
-        </TableRow>
-      );
-    });
+  const ready = state.cuts.filter(
+    (cut) => cut.status === "ready-to-review" && cut.pick !== "approved",
+  );
+  const cards = (cuts: Cut[]) =>
+    cuts.length ? (
+      <div className="grid gap-5 lg:grid-cols-2">
+        {cuts.map((cut) => {
+          const asset = assetById(state, cut.assetId);
+          return (
+            <Card key={cut.id} className="gap-6 p-6 shadow-none">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex size-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                  <Scissors className="size-5" />
+                </div>
+                <StatusBadge value={cut.status} />
+              </div>
+              <div>
+                <h3 className="text-base font-semibold leading-relaxed">
+                  {cut.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {asset?.title ?? "Source unavailable"}
+                </p>
+              </div>
+              <div className="rounded-xl bg-muted/40 p-4">
+                <p className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  <Sparkles className="size-3.5" />
+                  Opening hook
+                </p>
+                <p className="text-sm leading-relaxed">
+                  {cut.hook || "Add a hook as this cut takes shape."}
+                </p>
+              </div>
+              <div className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-border/70 pt-5">
+                <div className="flex items-center gap-3">
+                  {asset && <StatusBadge value={asset.sourceKind} />}
+                  <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <Clock3 className="size-3.5" />
+                    {cut.duration}
+                  </span>
+                </div>
+                {cut.status === "in-progress" ? (
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      dispatch({ type: "mark-cut-ready", cutId: cut.id });
+                      toast.message("Ready to review");
+                    }}
+                  >
+                    <CircleCheck />
+                    Ready to review
+                  </Button>
+                ) : (
+                  <StatusBadge value={cut.pick} />
+                )}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    ) : (
+      <div className="rounded-2xl border border-dashed p-12 text-center">
+        <CircleCheck className="mx-auto mb-4 size-7 text-muted-foreground" />
+        <h3 className="font-medium">This queue is clear</h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Cuts will appear here as they move through the editing process.
+        </p>
+      </div>
+    );
 
   return (
-    <div className="space-y-4">
-      <SampleAlert compact />
-      <Tabs defaultValue="in-progress">
-        <TabsList>
-          <TabsTrigger value="in-progress">
+    <div className="space-y-7">
+      <div>
+        <h2 className="text-lg font-semibold tracking-tight">
+          From footage to first cut
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Shape the story, sharpen the hook, then send it for review.
+        </p>
+      </div>
+      <Tabs defaultValue="in-progress" className="gap-6">
+        <TabsList className="h-auto! w-full justify-start gap-1 p-1 sm:w-fit">
+          <TabsTrigger value="in-progress" className="px-3 py-2.5">
             <Scissors />
-            In progress ({inProgress.length})
+            In progress{" "}
+            <span className="ml-1 text-xs text-muted-foreground">
+              {inProgress.length}
+            </span>
           </TabsTrigger>
-          <TabsTrigger value="ready">
+          <TabsTrigger value="ready" className="px-3 py-2.5">
             <CircleCheck />
-            Ready to review ({ready.length})
+            Ready to review{" "}
+            <span className="ml-1 text-xs text-muted-foreground">
+              {ready.length}
+            </span>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="in-progress">
-          <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Cut</TableHead>
-                  <TableHead>Source</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Duration</TableHead>
-                  <TableHead />
-                </TableRow>
-              </TableHeader>
-              <TableBody>{inProgress.length ? rows(inProgress) : (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-muted-foreground">Edit bay is clear.</TableCell>
-                </TableRow>
-              )}</TableBody>
-            </Table>
-          </Card>
-        </TabsContent>
-        <TabsContent value="ready">
-          <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Cut</TableHead>
-                  <TableHead>Source</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Duration</TableHead>
-                  <TableHead />
-                </TableRow>
-              </TableHeader>
-              <TableBody>{ready.length ? rows(ready) : (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-muted-foreground">Nothing waiting on a pick.</TableCell>
-                </TableRow>
-              )}</TableBody>
-            </Table>
-          </Card>
-        </TabsContent>
+        <TabsContent value="in-progress">{cards(inProgress)}</TabsContent>
+        <TabsContent value="ready">{cards(ready)}</TabsContent>
       </Tabs>
     </div>
   );

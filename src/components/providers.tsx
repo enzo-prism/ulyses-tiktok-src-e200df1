@@ -8,7 +8,12 @@ import { StoreProvider } from "@/lib/store";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      forcedTheme="light"
+      enableSystem={false}
+    >
       <TooltipProvider>
         <StoreProvider>
           <SidebarProvider>{children}</SidebarProvider>

@@ -35,25 +35,6 @@ const labels: Record<string, string> = {
   "library-clip": "Library clip",
 };
 
-const variants: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
-  posted: "default",
-  approved: "default",
-  ready: "default",
-  scheduled: "secondary",
-  selected: "secondary",
-  "in-edit": "secondary",
-  "in-progress": "secondary",
-  blocked: "destructive",
-  open: "outline",
-  raw: "outline",
-  hold: "outline",
-  none: "outline",
-  "ready-to-review": "outline",
-  tv: "outline",
-  interview: "outline",
-  "library-clip": "outline",
-};
-
 export const statusIcons: Record<string, LucideIcon> = {
   posted: CircleCheck,
   scheduled: Clock,
@@ -76,7 +57,7 @@ export const statusIcons: Record<string, LucideIcon> = {
 export function StatusBadge({ value }: { value: string }) {
   const Icon = statusIcons[value];
   return (
-    <Badge variant={variants[value] ?? "outline"}>
+    <Badge variant="outline" className={`status-badge status-${value}`}>
       {Icon ? <Icon /> : null}
       {labels[value] ?? value}
     </Badge>
