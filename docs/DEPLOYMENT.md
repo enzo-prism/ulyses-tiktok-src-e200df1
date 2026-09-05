@@ -10,6 +10,8 @@
 
 The source initially came from a temporary GitHub snapshot; the owner authorized maintaining and releasing the September 4 redesign here. The private Origin copy remains unreconciled. Do not delete this repository based on its historical filename.
 
+The active local checkout is `/Users/enzo/Projects/ulyses-dashboard`. The earlier Documents checkout encountered cloud-placeholder read stalls; use the Projects checkout for further work.
+
 ## Important build configuration
 
 The preceding deployment downloaded commit `faa4433eea44167ca99676a29ce01d169b74dc61` during installation. That bootstrap command would overwrite newly uploaded source. Keep the explicit commands in `vercel.json`:

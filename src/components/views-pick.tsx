@@ -7,7 +7,7 @@ import {
   Clapperboard,
   MousePointerClick,
   Pause,
-  Sparkles,
+  TextQuote,
   Undo2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -36,26 +36,23 @@ export function PickView() {
     {
       key: "ready",
       title: "Ready to review",
-      description: "Fresh cuts, ready for your eye.",
+      description: "Cuts awaiting a review decision.",
       items: columns.ready,
       icon: CircleCheck,
-      color: "bg-slate-100 text-slate-600",
     },
     {
       key: "selected",
-      title: "Your shortlist",
-      description: "The ideas you want to take forward.",
+      title: "Shortlisted",
+      description: "Selected cuts awaiting approval.",
       items: columns.selected,
       icon: MousePointerClick,
-      color: "bg-violet-100 text-violet-700",
     },
     {
       key: "hold",
       title: "On hold",
-      description: "Save these for another moment.",
+      description: "Cuts paused for further review.",
       items: columns.hold,
       icon: Pause,
-      color: "bg-amber-100 text-amber-700",
     },
   ] as const;
 
@@ -63,7 +60,7 @@ export function PickView() {
     <div className="space-y-7">
       <div>
         <h2 className="text-lg font-semibold tracking-tight">
-          Choose what goes next
+          Review and approvals
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Shortlist an idea, hold it for later, or approve it for the posting
@@ -75,9 +72,7 @@ export function PickView() {
           <section key={column.key} className="min-w-0 space-y-4">
             <div className="px-1">
               <div className="flex items-center gap-3">
-                <span
-                  className={`flex size-8 items-center justify-center rounded-lg ${column.color}`}
-                >
+                <span className="flex items-center text-muted-foreground">
                   <column.icon className="size-4" />
                 </span>
                 <h3 className="text-sm font-semibold">{column.title}</h3>
@@ -90,7 +85,7 @@ export function PickView() {
               </p>
             </div>
             {column.items.length === 0 ? (
-              <div className="rounded-xl border border-dashed px-6 py-10 text-center text-sm text-muted-foreground">
+              <div className="rounded-lg border border-dashed px-6 py-10 text-center text-sm text-muted-foreground">
                 No cuts here yet.
               </div>
             ) : (
@@ -99,7 +94,7 @@ export function PickView() {
                 return (
                   <Card key={cut.id} className="gap-5 p-5 shadow-none">
                     <div className="flex items-center justify-between gap-3">
-                      <Clapperboard className="size-5 text-violet-500" />
+                      <Clapperboard className="size-5 text-muted-foreground" />
                       <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Clock3 className="size-3.5" />
                         {cut.duration}
@@ -119,7 +114,7 @@ export function PickView() {
                     </div>
                     <div className="rounded-lg bg-muted/40 p-4">
                       <p className="mb-2 flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                        <Sparkles className="size-3.5" />
+                        <TextQuote className="size-3.5" />
                         Opening hook
                       </p>
                       <p className="text-sm leading-relaxed">

@@ -238,7 +238,7 @@ export function PublishingView() {
     <div className="space-y-7">
       <div>
         <h2 className="text-lg font-semibold tracking-tight">
-          Your posting queue
+          Publishing queue
         </h2>
         <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
           Prepare captions and track your posts. Publishing happens in TikTok.
@@ -263,7 +263,7 @@ export function PublishingView() {
         {columns.map((column) => (
           <TabsContent key={column.key} value={column.key}>
             {column.items.length === 0 ? (
-              <div className="rounded-2xl border border-dashed p-12 text-center">
+              <div className="rounded-lg border border-dashed p-12 text-center">
                 <column.icon className="mx-auto mb-4 size-7 text-muted-foreground" />
                 <h3 className="font-medium">
                   No {column.title.toLowerCase()} posts
@@ -279,7 +279,7 @@ export function PublishingView() {
                     key={post.id}
                     className="flex-col gap-5 p-6 shadow-none sm:flex-row sm:items-center"
                   >
-                    <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                    <div className="flex shrink-0 self-start items-center text-muted-foreground">
                       <Clapperboard className="size-5" />
                     </div>
                     <div className="min-w-0 flex-1">

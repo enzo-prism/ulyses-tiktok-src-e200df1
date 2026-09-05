@@ -3,28 +3,28 @@ export const siteTitle = "Ulyses";
 export const routeMeta: Record<string, { title: string; description: string }> =
   {
     "/": {
-      title: "Your content, in motion.",
-      description: "A little clarity for everything you're creating.",
+      title: "Overview",
+      description: "Track production, approvals, and publishing.",
     },
     "/library": {
       title: "Content library",
-      description: "Great stories start with what you already have.",
+      description: "Manage source footage and production status.",
     },
     "/edit": {
-      title: "The editing room",
-      description: "Turn your strongest moments into something worth watching.",
+      title: "Editing",
+      description: "Prepare cuts and submit them for review.",
     },
     "/pick": {
-      title: "Make the final cut",
-      description: "Review the direction. Choose what moves forward.",
+      title: "Review",
+      description: "Review edits and approve content for publishing.",
     },
     "/publishing": {
-      title: "Ready for the feed",
-      description: "Keep every approved post and planned date in one place.",
+      title: "Publishing",
+      description: "Manage approved posts, schedules, and blockers.",
     },
     "/performance": {
-      title: "See what resonates",
-      description: "A clear view of how your content is performing.",
+      title: "Performance",
+      description: "Review results across published content.",
     },
   };
 

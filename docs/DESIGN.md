@@ -2,23 +2,25 @@
 
 ## Direction
 
-A calm content workspace: white surfaces, generous spacing, clear typography, consistent Lucide icons and restrained violet accents. Light mode is intentionally forced for the current design.
+A professional content operations workspace: white surfaces, generous spacing, clear typography, consistent monochrome Lucide icons and charcoal actions. Light mode is intentionally forced for the current design.
 
 ## Foundations
 
 - Geist sans for interface text; tabular numbers for counts and metrics.
-- White content surface, near-white sidebar, dark charcoal text, violet primary actions.
-- Core tokens live in `src/app/globals.css`; primary is `#7054d6`, foreground `#202331`, border `#eceef2`.
-- Use 24–32px group spacing and ample page margins. Separate sections through spacing before adding containers.
+- White content surface, near-white sidebar, dark charcoal text, charcoal primary actions.
+- Core tokens live in `src/app/globals.css`; primary is `#18181b`, foreground `#18181b`, border `#e4e4e7`.
+- Use 32–40px section spacing and ample page margins. Separate sections through spacing before adding containers.
 - Lucide icons should explain navigation, source type or status. Avoid decorative imagery that could be mistaken for real client footage.
-- Status badges include text/icons as well as color: emerald for approved/posted, violet for selected/scheduled, blue for editing and amber for held/blocked.
+- Status badges include text/icons as well as color: muted green for approved/posted, neutral for selected/scheduled/editing, and amber for held/blocked.
 - Buttons have visible focus styles; the shell includes a skip link and active navigation semantics. Preserve reduced-motion support.
+
+Use 6–8px corners and thin borders. Icons explain meaning without colored decorative tiles. Use direct operational headings and factual copy; avoid motivational taglines.
 
 ## Screen ownership
 
 `app-shell.tsx` owns navigation, page heading, the shared sample notice and footer. `page-meta.ts` owns route copy. Each `views-*.tsx` component owns the contents of its screen.
 
-- Overview: actionable pipeline counts and a clearly labeled historical sample week. Raw footage count is not the total library size.
+- Overview: a unified pipeline metric strip, blockers before the calendar, and actionable pipeline counts and a clearly labeled historical sample week. Raw footage count is not the total library size.
 - Library: searchable/filterable source records and clear empty states.
 - Editing: readable hooks, source context and review actions.
 - Review: separate ready, shortlisted and held cuts; preserve every action.

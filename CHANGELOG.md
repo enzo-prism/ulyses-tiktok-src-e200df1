@@ -1,5 +1,15 @@
 # Change history
 
+## 2026-09-04 — Professional design refinement
+
+- Replaced violet accents and decorative icon tiles with charcoal actions, neutral surfaces, and monochrome icons.
+- Simplified route titles, navigation branding, and workflow copy.
+- Consolidated overview and performance metrics into divided summaries.
+- Moved overview blockers ahead of the publishing calendar.
+- Applied restrained 6–8px corners across all six screens while preserving whitespace, sample disclosures, and workflow controls.
+
+Validation: production build and TypeScript passed; calendar regressions passed in UTC and Pacific; desktop/mobile layout, library filtering, publishing tabs, blocked controls, chart rendering and browser errors checked.
+
 ## 2026-09-04 — Content Studio redesign
 
 - Replaced the dense dark interface with a light workspace, generous spacing, Geist typography, Lucide icons and soft violet accents.

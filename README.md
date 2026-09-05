@@ -1,4 +1,4 @@
-# Ulyses Content Studio
+# Ulyses Content Operations
 
 A light, responsive dashboard for the Ulyses / Influencer Press content workflow.
 
@@ -15,14 +15,14 @@ The local app runs at http://localhost:43127. For a production-mode preview, run
 
 ## Workspace
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Pipeline counts, sample weekly calendar, upcoming posts and blockers |
-| `/library` | Search and filter source footage records |
-| `/edit` | Review cuts being edited and move them into review |
-| `/pick` | Select, hold or approve sample content |
-| `/publishing` | Edit captions, record schedules and track posting status |
-| `/performance` | Sample post metrics and view comparisons |
+| Route          | Purpose                                                              |
+| -------------- | -------------------------------------------------------------------- |
+| `/`            | Pipeline counts, sample weekly calendar, upcoming posts and blockers |
+| `/library`     | Search and filter source footage records                             |
+| `/edit`        | Review cuts being edited and move them into review                   |
+| `/pick`        | Select, hold or approve sample content                               |
+| `/publishing`  | Edit captions, record schedules and track posting status             |
+| `/performance` | Sample post metrics and view comparisons                             |
 
 ## Verify changes
 

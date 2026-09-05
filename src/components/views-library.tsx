@@ -48,13 +48,13 @@ export function LibraryView() {
       <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
         <div>
           <h2 className="text-lg font-semibold tracking-tight">
-            Your footage{" "}
+            Source footage{" "}
             <span className="ml-2 text-sm font-normal text-muted-foreground">
               {state.assets.length} assets
             </span>
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Find the moments worth turning into something new.
+            Search and filter source footage.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -102,10 +102,10 @@ export function LibraryView() {
         {items.map((asset) => (
           <Card
             key={asset.id}
-            className="gap-6 p-6 shadow-none transition-shadow hover:shadow-sm"
+            className="gap-6 p-6 shadow-none transition-colors hover:border-zinc-300"
           >
             <div className="flex items-center justify-between gap-3">
-              <div className="flex size-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+              <div className="flex shrink-0 self-start items-center text-muted-foreground">
                 <Clapperboard className="size-5" />
               </div>
               <StatusBadge value={asset.status} />
@@ -170,7 +170,7 @@ export function LibraryView() {
         ))}
       </div>
       {!items.length && (
-        <div className="rounded-2xl border border-dashed p-12 text-center">
+        <div className="rounded-lg border border-dashed p-12 text-center">
           <FolderOpen className="mx-auto mb-4 size-7 text-muted-foreground" />
           <h3 className="font-medium">No matching footage</h3>
           <p className="mt-2 text-sm text-muted-foreground">

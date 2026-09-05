@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleCheck, Clock3, Scissors, Sparkles } from "lucide-react";
+import { CircleCheck, Clock3, Scissors, TextQuote } from "lucide-react";
 import { toast } from "sonner";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export function EditView() {
           return (
             <Card key={cut.id} className="gap-6 p-6 shadow-none">
               <div className="flex items-start justify-between gap-3">
-                <div className="flex size-11 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                <div className="flex shrink-0 self-start items-center text-muted-foreground">
                   <Scissors className="size-5" />
                 </div>
                 <StatusBadge value={cut.status} />
@@ -36,13 +36,13 @@ export function EditView() {
                   {asset?.title ?? "Source unavailable"}
                 </p>
               </div>
-              <div className="rounded-xl bg-muted/40 p-4">
+              <div className="rounded-lg bg-muted/40 p-4">
                 <p className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  <Sparkles className="size-3.5" />
+                  <TextQuote className="size-3.5" />
                   Opening hook
                 </p>
                 <p className="text-sm leading-relaxed">
-                  {cut.hook || "Add a hook as this cut takes shape."}
+                  {cut.hook || "No opening hook added."}
                 </p>
               </div>
               <div className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-border/70 pt-5">
@@ -73,7 +73,7 @@ export function EditView() {
         })}
       </div>
     ) : (
-      <div className="rounded-2xl border border-dashed p-12 text-center">
+      <div className="rounded-lg border border-dashed p-12 text-center">
         <CircleCheck className="mx-auto mb-4 size-7 text-muted-foreground" />
         <h3 className="font-medium">This queue is clear</h3>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -85,11 +85,9 @@ export function EditView() {
   return (
     <div className="space-y-7">
       <div>
-        <h2 className="text-lg font-semibold tracking-tight">
-          From footage to first cut
-        </h2>
+        <h2 className="text-lg font-semibold tracking-tight">Editing queue</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Shape the story, sharpen the hook, then send it for review.
+          Manage cuts in progress and submit completed edits for review.
         </p>
       </div>
       <Tabs defaultValue="in-progress" className="gap-6">

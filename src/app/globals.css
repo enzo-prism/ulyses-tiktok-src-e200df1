@@ -136,27 +136,27 @@
 
 /* Light studio: quiet surfaces, readable hierarchy, deliberate spacing. */
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   --background: #ffffff;
-  --foreground: #202331;
+  --foreground: #18181b;
   --card: #ffffff;
-  --card-foreground: #202331;
-  --primary: #7054d6;
+  --card-foreground: #18181b;
+  --primary: #18181b;
   --primary-foreground: #ffffff;
   --muted: #f6f7f9;
-  --muted-foreground: #697080;
-  --secondary: #f3f0fc;
-  --secondary-foreground: #6445bb;
-  --accent: #f0ecfb;
-  --accent-foreground: #6547c2;
-  --border: #eceef2;
-  --input: #e2e5ec;
-  --ring: #927bdd;
-  --sidebar: #fafafb;
-  --sidebar-foreground: #697080;
-  --sidebar-accent: #efebfb;
-  --sidebar-accent-foreground: #6849c4;
-  --sidebar-border: #eceef2;
+  --muted-foreground: #71717a;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #27272a;
+  --accent: #f4f4f5;
+  --accent-foreground: #27272a;
+  --border: #e4e4e7;
+  --input: #d4d4d8;
+  --ring: #71717a;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #71717a;
+  --sidebar-accent: #ededee;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
 }
 html {
   color-scheme: light;
@@ -165,7 +165,7 @@ body {
   letter-spacing: -0.012em;
 }
 ::selection {
-  background: #e8dffa;
+  background: #e4e4e7;
 }
 button,
 a,
@@ -174,6 +174,7 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 [data-slot="card"] {
+  border-radius: 8px;
   box-shadow: none;
   border: 1px solid var(--border);
   --tw-ring-shadow: 0 0 #0000;
@@ -213,13 +214,13 @@ textarea {
 .status-scheduled,
 .status-selected,
 .status-ready-to-review {
-  background: #f0ebfb;
-  color: #7450be;
+  background: #f4f4f5;
+  color: #52525b;
 }
 .status-in-edit,
 .status-in-progress {
-  background: #edf4fd;
-  color: #426eaf;
+  background: #f4f4f5;
+  color: #52525b;
 }
 .status-blocked,
 .status-hold {
