@@ -104,6 +104,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     >
                       <Link
                         href={item.href}
+                        prefetch={true}
                         aria-current={
                           pathname === item.href ? "page" : undefined
                         }

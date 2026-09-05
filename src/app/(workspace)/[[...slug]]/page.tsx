@@ -3,7 +3,21 @@ import { notFound, redirect } from "next/navigation";
 import { Console } from "@/components/console";
 import { metaForPath, missingMeta } from "@/lib/page-meta";
 
-const routes = new Set(["", "library", "edit", "pick", "publishing", "performance"]);
+const routes = new Set([
+  "",
+  "library",
+  "edit",
+  "pick",
+  "publishing",
+  "performance",
+]);
+
+// These screens use browser-local state, so their route payloads can be cached.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return Array.from(routes, (route) => ({ slug: route ? [route] : [] }));
+}
 
 function pathFromSlug(slug?: string[]) {
   const leaf = slug?.[0] ?? "";

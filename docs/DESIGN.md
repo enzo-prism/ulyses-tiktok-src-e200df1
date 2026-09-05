@@ -18,6 +18,8 @@ Use 6–8px corners and thin borders. Icons explain meaning without colored deco
 
 ## Screen ownership
 
+The persistent `(workspace)/layout.tsx` mounts `app-shell.tsx` once across section navigation. The route page pre-renders all six sections with `generateStaticParams`; keep loading UI inside the workspace content boundary. `Console` renders only the active view.
+
 `app-shell.tsx` owns navigation, page heading, the shared sample notice and footer. `page-meta.ts` owns route copy. Each `views-*.tsx` component owns the contents of its screen.
 
 - Overview: a unified pipeline metric strip, blockers before the calendar, and actionable pipeline counts and a clearly labeled historical sample week. Raw footage count is not the total library size.

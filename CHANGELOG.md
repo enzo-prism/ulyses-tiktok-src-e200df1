@@ -1,5 +1,14 @@
 # Change history
 
+## 2026-09-04 — Faster section navigation
+
+- Pre-rendered all six dashboard routes and enabled full sidebar prefetching.
+- Moved the shared shell into a persistent workspace layout, keeping navigation/header mounted across section changes.
+- Limited the loading fallback to page content instead of replacing the entire dashboard.
+- Preserved native URLs, browser history, metadata, mobile drawer behavior, and browser-local workflow state.
+
+Validation: production build/TypeScript passed; six cached local section transitions issued no network requests; direct routes returned 200/cache HIT; legacy redirect and unknown-route 404s passed; back/forward and mobile drawer closure checked with no browser errors.
+
 ## 2026-09-04 — Professional design refinement
 
 - Replaced violet accents and decorative icon tiles with charcoal actions, neutral surfaces, and monochrome icons.
